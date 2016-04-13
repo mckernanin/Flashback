@@ -75,7 +75,7 @@ class Flashback {
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
-
+		add_action( 'tgmpa_register', array( $this, 'register_required_plugins' ) );
 	}
 
 	/**
@@ -109,6 +109,11 @@ class Flashback {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-flashback-i18n.php';
 
 		/**
+		 * The class responsible for defining all custom post types and taxonomies.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-flashback-content-types.php';
+
+		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-flashback-admin.php';
@@ -118,6 +123,12 @@ class Flashback {
 		 * side of the site.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-flashback-public.php';
+
+		/**
+		 * The class responsible for plugin dependencies
+		 */
+
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/lib/class-tgm-plugin-activation.php';
 
 		$this->loader = new Flashback_Loader();
 
@@ -212,4 +223,51 @@ class Flashback {
 		return $this->version;
 	}
 
+	/**
+	 * Register the required plugins for this plugin.
+	 *
+	 * This function is hooked into tgmpa_init, which is fired within the
+	 * TGM_Plugin_Activation class constructor.
+	 */
+	public function register_required_plugins() {
+		$plugins = array(
+
+			array(
+				'name'      => 'Advanced Custom Fields',
+				'slug'      => 'advanced-custom-fields',
+				'required'  => true,
+			),
+
+			array(
+				'name'      => 'Advanced Custom Fields: Font Awesome',
+				'slug'      => 'advanced-custom-fields-font-awesome',
+				'required'  => true,
+			),
+
+		);
+
+		/*
+		 * Array of configuration settings. Amend each line as needed.
+		 *
+		 * TGMPA will start providing localized text strings soon. If you already have translations of our standard
+		 * strings available, please help us make TGMPA even better by giving us access to these translations or by
+		 * sending in a pull-request with .po file(s) with the translations.
+		 *
+		 * Only uncomment the strings in the config array if you want to customize the strings.
+		 */
+		$config = array(
+			'id'           => 'flashback',                 // Unique ID for hashing notices for multiple instances of TGMPA.
+			'default_path' => '',                      // Default absolute path to bundled plugins.
+			'menu'         => 'tgmpa-install-plugins', // Menu slug.
+			'parent_slug'  => 'plugins.php',            // Parent menu slug.
+			'capability'   => 'manage_options',    // Capability needed to view plugin install page, should be a capability associated with the parent menu used.
+			'has_notices'  => true,                    // Show admin notices or not.
+			'dismissable'  => true,                    // If false, a user cannot dismiss the nag message.
+			'dismiss_msg'  => '',                      // If 'dismissable' is false, this message will be output at top of nag.
+			'is_automatic' => false,                   // Automatically activate plugins after installation or not.
+			'message'      => '',                      // Message to output right before the plugins table.
+		);
+
+		tgmpa( $plugins, $config );
+	}
 }

@@ -41,6 +41,15 @@ class Flashback_Public {
 	private $version;
 
 	/**
+	 * The location of the public class.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 * @var      string    $filepath    The location of the public class.
+	 */
+	private $filepath;
+
+	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
@@ -50,7 +59,10 @@ class Flashback_Public {
 	public function __construct( $plugin_name, $version ) {
 
 		$this->plugin_name = $plugin_name;
-		$this->version = $version;
+		$this->version     = $version;
+		$this->filepath    = plugin_dir_url( __FILE__ );
+		add_shortcode( 'flashback-horizontal', array( $this, 'shortcode_horizontal_timeline' ) );
+		add_shortcode( 'flashback-vertical', array( $this, 'shortcode_vertical_timeline' ) );
 
 	}
 
@@ -73,7 +85,9 @@ class Flashback_Public {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/flashback-public.css', array(), $this->version, 'all' );
+		wp_register_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/flashback-public.css', array(), $this->version, 'all' );
+		wp_register_style( 'flashback_horizontal', plugin_dir_url( __FILE__ ) . 'css/horizontal/style.css', array(), $this->version, 'all' );
+		wp_register_style( 'flashback_vertical', plugin_dir_url( __FILE__ ) . 'css/vertical/style.css', array(), $this->version, 'all' );
 
 	}
 
@@ -96,8 +110,38 @@ class Flashback_Public {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/flashback-public.js', array( 'jquery' ), $this->version, false );
+		wp_register_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/flashback-public.js', array( 'jquery' ), $this->version, false );
+		wp_register_script( 'flashback_horizontal', plugin_dir_url( __FILE__ ) . 'js/horizontal/style.css', array( 'jquery' ), $this->version, false );
+		wp_register_script( 'flashback_vertical', plugin_dir_url( __FILE__ ) . 'js/vertical/main.js', array( 'jquery' ), $this->version, false );
 
 	}
 
+	/**
+	 * Register the shortcode for the leadership position filter.
+	 *
+	 * @since    1.0.0
+	 * @param array $atts Shortcode attributes.
+	 */
+	public function shortcode_horizontal_timeline( $atts ) {
+		ob_start();
+		wp_enqueue_style( 'horizontal' );
+		include( 'partials/shortcode-horizontal-timeline.php' );
+		$shortcode_output = ob_get_clean();
+		return $shortcode_output;
+	}
+
+	/**
+	 * Register the shortcode for the leadership position filter.
+	 *
+	 * @since    1.0.0
+	 * @param array $atts Shortcode attributes.
+	 */
+	public function shortcode_vertical_timeline( $atts ) {
+		ob_start();
+		wp_enqueue_style( 'flashback_vertical' );
+		wp_enqueue_script( 'flashback_vertical' );
+		include( 'partials/shortcode-vertical-timeline.php' );
+		$shortcode_output = ob_get_clean();
+		return $shortcode_output;
+	}
 }
