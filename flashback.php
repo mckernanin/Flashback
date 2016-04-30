@@ -16,7 +16,7 @@
  * Plugin Name:       Flashback
  * Plugin URI:        https://mckernan.in/flashback
  * Description:       Display simple responsive timelines on your website.
- * Version:           1.0.6
+ * Version:           1.0.7
  * Author:            Kevin McKernan
  * Author URI:        https://mckernan.in
  * GitHub Plugin URI: mckernanin/flashback

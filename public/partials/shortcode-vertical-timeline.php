@@ -45,7 +45,7 @@ while ( $query->have_posts() ) : $query->the_post();
 			<p><?php the_content(); ?></p>
 			<?php if ( get_the_content() ) { ?>
 				<a href="<?php the_permalink(); ?>" class="flb-read-more">Read more</a>
-			<?php } // end if ( get_the_content() )
+			<?php } // end if ( get_the_content() ) ?>
 			<span class="flb-date"><?php echo date( $date_format, $date ); ?></span>
 		</div>
 	</div>
