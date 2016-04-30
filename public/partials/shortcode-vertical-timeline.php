@@ -17,7 +17,7 @@ $options = array(
 	'order'          => $atts['order'],
 	'orderby'        => $atts['orderby'],
 	'posts_per_page' => $atts['posts'],
-	'meta_key'       => 'date',
+	'meta_key'       => 'flb_date',
 );
 
 $query = new WP_Query( $options );
@@ -29,6 +29,7 @@ if ( $query->have_posts() ) {
 <?php
 while ( $query->have_posts() ) : $query->the_post();
 	$date = strtotime( FlashbackField::get( 'date' ) );
+	$date_format = FlashbackField::get( 'date_format' );
 ?>
 
 	<div class="flb-timeline-block">
@@ -40,7 +41,7 @@ while ( $query->have_posts() ) : $query->the_post();
 			<h2><?php the_title(); ?></h2>
 			<p><?php the_content(); ?></p>
 			<a href="<?php the_permalink(); ?>" class="flb-read-more">Read more</a>
-			<span class="flb-date"><?php echo date( 'F jS, Y', $date ); ?></span>
+			<span class="flb-date"><?php echo date( $date_format, $date ); ?></span>
 		</div>
 	</div>
 

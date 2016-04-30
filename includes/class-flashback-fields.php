@@ -79,6 +79,18 @@ class FlashbackField {
 		    'date_format' => 'Ymd',
 		) );
 
+		$cmb->add_field( array(
+		    'name'    => 'Date Format',
+		    'id'      => $prefix . 'date_format',
+		    'type'    => 'radio_inline',
+		    'options' => array(
+		        'F jS, Y'  => __( 'Full', 'flashback' ),
+		        'F Y' => __( 'Month Only', 'flashback' ),
+		        'Y'  => __( 'Year Only', 'flashback' ),
+		    ),
+			'default' => 'F jS, Y',
+		) );
+
 		// Icon field
 		$cmb->add_field( array(
 			'name'    => __( 'Select Icon', 'Flashback' ),
