@@ -15,10 +15,11 @@
  * @wordpress-plugin
  * Plugin Name:       Flashback
  * Plugin URI:        https://mckernan.in/flashback
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
- * Version:           1.0.0
+ * Description:       Display simple responsive timelines on your website.
+ * Version:           1.0.1
  * Author:            Kevin McKernan
  * Author URI:        https://mckernan.in
+ * GitHub Plugin URI: mckernanin/flashback
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       flashback

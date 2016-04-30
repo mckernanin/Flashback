@@ -25,6 +25,7 @@ class FlashbackField {
 	 * Load all fields.
 	 */
 	public function load_fields() {
+		add_filter( 'cmb2_localized_data', array( $this, 'update_date_picker_defaults' ) );
 		add_action( 'cmb2_admin_init', array( $this, 'timeline_item_metaboxes' ) );
 	}
 
@@ -85,6 +86,13 @@ class FlashbackField {
 			'type'    => 'fontawesome_icon',
 			'default' => 'fa-history',
 		) );
+	}
+
+	function update_date_picker_defaults( $l10n ) {
+
+	    $l10n['defaults']['date_picker']['yearRange'] = '1950:+0';
+
+	    return $l10n;
 	}
 }
 
