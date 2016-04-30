@@ -28,12 +28,12 @@ if ( $query->have_posts() ) {
 
 <?php
 while ( $query->have_posts() ) : $query->the_post();
-	$date = strtotime( get_field( 'date' ) );
+	$date = strtotime( FlashbackField::get( 'date' ) );
 ?>
 
 	<div class="flb-timeline-block">
 		<div class="flb-timeline-img flb-picture">
-			<?php the_field( 'icon' ); ?>
+			<?php echo FlashbackField::get_icon( 'icon' ); ?>
 		</div>
 
 		<div class="flb-timeline-content">

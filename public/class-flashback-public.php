@@ -88,6 +88,7 @@ class Flashback_Public {
 		wp_register_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/flashback-public.css', array(), $this->version, 'all' );
 		wp_register_style( 'flashback_horizontal', plugin_dir_url( __FILE__ ) . 'css/horizontal/style.css', array(), $this->version, 'all' );
 		wp_register_style( 'flashback_vertical', plugin_dir_url( __FILE__ ) . 'css/vertical/style.css', array(), $this->version, 'all' );
+		wp_register_style( 'fontawesome', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css', array(), $this->version, 'all' );
 
 	}
 
@@ -111,7 +112,7 @@ class Flashback_Public {
 		 */
 
 		wp_register_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/flashback-public.js', array( 'jquery' ), $this->version, false );
-		wp_register_script( 'flashback_horizontal', plugin_dir_url( __FILE__ ) . 'js/horizontal/style.css', array( 'jquery' ), $this->version, false );
+		wp_register_script( 'flashback_horizontal', plugin_dir_url( __FILE__ ) . 'js/horizontal/main.js', array( 'jquery' ), $this->version, false );
 		wp_register_script( 'flashback_vertical', plugin_dir_url( __FILE__ ) . 'js/vertical/main.js', array( 'jquery' ), $this->version, false );
 
 	}
@@ -124,7 +125,9 @@ class Flashback_Public {
 	 */
 	public function shortcode_horizontal_timeline( $atts ) {
 		ob_start();
-		wp_enqueue_style( 'horizontal' );
+		wp_enqueue_style( 'flashback_horizontal' );
+		wp_enqueue_script( 'flashback_horizontal' );
+		wp_enqueue_style( 'fontawesome' );
 		include( 'partials/shortcode-horizontal-timeline.php' );
 		$shortcode_output = ob_get_clean();
 		return $shortcode_output;
@@ -140,6 +143,7 @@ class Flashback_Public {
 		ob_start();
 		wp_enqueue_style( 'flashback_vertical' );
 		wp_enqueue_script( 'flashback_vertical' );
+		wp_enqueue_style( 'fontawesome' );
 		include( 'partials/shortcode-vertical-timeline.php' );
 		$shortcode_output = ob_get_clean();
 		return $shortcode_output;

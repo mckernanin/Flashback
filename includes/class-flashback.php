@@ -127,8 +127,12 @@ class Flashback {
 		/**
 		 * The class responsible for plugin dependencies
 		 */
-
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/lib/class-tgm-plugin-activation.php';
+
+		/**
+		 * The class responsible for custom fields
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-flashback-fields.php';
 
 		$this->loader = new Flashback_Loader();
 
@@ -233,15 +237,9 @@ class Flashback {
 		$plugins = array(
 
 			array(
-				'name'      => 'Advanced Custom Fields',
-				'slug'      => 'advanced-custom-fields',
-				'required'  => true,
-			),
-
-			array(
-				'name'      => 'Advanced Custom Fields: Font Awesome',
-				'slug'      => 'advanced-custom-fields-font-awesome',
-				'required'  => true,
+				'name'      => 'CMB2 Field Type: Font-Awesome Picker',
+				'slug'      => 'cmb2-fontawesome-icon-picker',
+				'source'    => 'https://github.com/theKhorshed/cmb2-fontawesome-icon-picker/archive/master.zip',
 			),
 
 		);

@@ -46,7 +46,7 @@ Main components
 
 .flb-timeline-img { position: absolute; top: 0; left: 0; width: 40px; height: 40px; border-radius: 50%; box-shadow: 0 0 0 4px #ffffff, inset 0 2px 0 rgba(0, 0, 0, 0.08), 0 3px 0 4px rgba(0, 0, 0, 0.05); background: #75ce66; }
 
-.flb-timeline-img i { font-size: 36px; color: white; position: absolute; left: 50%; top: 50%; -webkit-transform: translate3d(-50%, -50%, 0); transform: translate3d(-50%, -50%, 0); }
+.flb-timeline-img i { font-size: 26px; color: white; position: absolute; left: 50%; top: 50%; -webkit-transform: translate3d(-50%, -50%, 0); transform: translate3d(-50%, -50%, 0); }
 
 @media only screen and (min-width: 1170px) { .flb-timeline-img { width: 60px; height: 60px; left: 50%; margin-left: -30px; /* Force Hardware Acceleration in WebKit */ -webkit-transform: translateZ(0); -webkit-backface-visibility: hidden; }
   .cssanimations .flb-timeline-img.is-hidden { visibility: hidden; }
