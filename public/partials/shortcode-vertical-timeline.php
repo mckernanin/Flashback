@@ -30,6 +30,9 @@ if ( $query->have_posts() ) {
 while ( $query->have_posts() ) : $query->the_post();
 	$date = strtotime( FlashbackField::get( 'date' ) );
 	$date_format = FlashbackField::get( 'date_format' );
+	if ( empty( $date_format ) ) {
+		$date_format = 'F jS, Y';
+	}
 ?>
 
 	<div class="flb-timeline-block">
