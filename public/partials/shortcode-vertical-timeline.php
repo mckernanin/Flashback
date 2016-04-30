@@ -13,10 +13,10 @@ $atts = shortcode_atts( array(
 ), $atts);
 
 $options = array(
-	'post_type'      => $atts['type'],
-	'order'          => $atts['order'],
-	'orderby'        => $atts['orderby'],
-	'posts_per_page' => $atts['posts'],
+	'post_type'      => 'flb_timeline_item',
+	'order'          => 'DESC',
+	'orderby'        => 'meta_value',
+	'posts_per_page' => 25,
 	'meta_key'       => 'flb_date',
 );
 
