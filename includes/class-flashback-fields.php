@@ -84,9 +84,9 @@ class FlashbackField {
 		    'id'      => $prefix . 'date_format',
 		    'type'    => 'radio_inline',
 		    'options' => array(
-		        'F jS, Y'  => __( 'Full', 'flashback' ),
-		        'F Y' => __( 'Month Only', 'flashback' ),
-		        'Y'  => __( 'Year Only', 'flashback' ),
+		        'F jS, Y' => __( 'Full', 'flashback' ),
+		        'F Y'     => __( 'Month Only', 'flashback' ),
+		        'Y'       => __( 'Year Only', 'flashback' ),
 		    ),
 			'default' => 'F jS, Y',
 		) );

@@ -14,10 +14,10 @@ $atts = shortcode_atts( array(
 
 $options = array(
 	'post_type'      => 'flb_timeline_item',
-	'order'          => 'DESC',
+	'order'          => $atts['orderby'],
 	'orderby'        => 'meta_value',
 	'posts_per_page' => 25,
-	'meta_key'       => 'flb_date',
+	'meta_key'       => '_flb_date',
 );
 
 $query = new WP_Query( $options );
@@ -40,7 +40,9 @@ while ( $query->have_posts() ) : $query->the_post();
 		<div class="flb-timeline-content">
 			<h2><?php the_title(); ?></h2>
 			<p><?php the_content(); ?></p>
-			<a href="<?php the_permalink(); ?>" class="flb-read-more">Read more</a>
+			<?php if ( get_the_content() ) { ?>
+				<a href="<?php the_permalink(); ?>" class="flb-read-more">Read more</a>
+			<?php } // end if ( get_the_content() )
 			<span class="flb-date"><?php echo date( $date_format, $date ); ?></span>
 		</div>
 	</div>
@@ -49,4 +51,3 @@ while ( $query->have_posts() ) : $query->the_post();
 endwhile; ?>
 </section>
 <?php
-}

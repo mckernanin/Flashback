@@ -3,13 +3,7 @@
 Primary style
 
 -------------------------------- */
-html * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; transition: 0.3s; }
-
-*, *:after, *:before { box-sizing: border-box; }
-
-.sidebar { display: none; }
-
-.content-area, .site-content { margin: 0; padding: 0; width: 100%; }
+html * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 
 /* --------------------------------
 
