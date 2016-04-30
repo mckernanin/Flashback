@@ -90,7 +90,7 @@ class FlashbackField {
 
 	function update_date_picker_defaults( $l10n ) {
 
-	    $l10n['defaults']['date_picker']['yearRange'] = '1950:+0';
+	    $l10n['defaults']['date_picker']['yearRange'] = '1900:+0';
 
 	    return $l10n;
 	}
