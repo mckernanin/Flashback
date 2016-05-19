@@ -1,53 +1,34 @@
-@import 'bourbon'; // http://bourbon.io/
+@import "bourbon"; // http://bourbon.io/
 
-@import '../partials/variables'; // colors, fonts etc...
+@import "partials/variables"; // colors, fonts etc...
 
-@import '../partials/mixins'; // custom mixins
+@import "partials/mixins"; // custom mixins
 
-@import '../partials/layout'; // responsive grid and media queries
+@import "partials/layout"; // responsive grid and media queries
 
-/* -------------------------------- 
+/* --------------------------------
 
-Primary style
-
--------------------------------- */
-
-*, *::after, *::before {
-	box-sizing: border-box;
-}
-
-html {
-	font-size: 62.5%;
-}
-
-body {
-	font: {
-		size: 1.6rem;
-		family: $primary-font; // variables inside partials > _variables.scss
-	}
-	color: $color-1;
-	background-color: $color-4;
-}
-
-a {
-	color: $color-2;
-	text-decoration: none;
-}
-
-/* -------------------------------- 
-
-Main Components 
+Main Components
 
 -------------------------------- */
 
-.cd-horizontal-timeline {
+.sidebar {
+	display: none !important;
+}
+
+.content-area {
+	width: 100%;
+}
+
+.flb-horizontal-timeline {
 	opacity: 0;
 	margin: 2em auto;
-	@include transition(opacity .2s);
 
-	&::before {
+	transition: 0.2s opacity;
+
+	&:before {
 		/* never visible - this is used in jQuery to check the current MQ */
-		content: 'mobile';
+		content: "mobile";
 		display: none;
 	}
 
@@ -64,15 +45,20 @@ Main Components
 		margin: 0 auto;
 	}
 
+	a {
+		box-shadow: none;
+	}
+
 	.events-wrapper {
 		position: relative;
 		height: 100%;
 		margin: 0 40px;
 		overflow: hidden;
 
-		&::after, &::before {
+		&:after,
+		&:before {
 			/* these are used to create a shadow effect at the sides of the timeline */
-			content: '';
+			content: "";
 			position: absolute;
 			z-index: 2;
 			top: 0;
@@ -80,14 +66,16 @@ Main Components
 			width: 20px;
 		}
 
-		&::before {
+		&:before {
 			left: 0;
-	    	@include background-image(linear-gradient(to right,$color-4, rgba($color-4, 0)));
+
+			background-image: linear-gradient(to right, $color-4, rgba($color-4, 0));
 		}
 
-		&::after {
+		&:after {
 			right: 0;
-			@include background-image(linear-gradient(to left,$color-4, rgba($color-4, 0)));
+
+			background-image: linear-gradient(to left, $color-4, rgba($color-4, 0));
 		}
 	}
 
@@ -98,9 +86,10 @@ Main Components
 		left: 0;
 		top: 49px;
 		height: 2px;
+
 		/* width will be set using JavaScript */
 		background: darken($color-4, 10%);
-		@include transition(transform .4s);
+		transition: 0.4s transform;
 	}
 
 	.filling-line {
@@ -112,9 +101,10 @@ Main Components
 		height: 100%;
 		width: 100%;
 		background-color: $color-2;
-		@include transform(scaleX(0));
-		@include transform-origin(left center);
-		@include transition(transform .3s);
+
+		transform: scaleX(0);
+		transform-origin: left center;
+		transition: 0.3s transform;
 	}
 
 	.events a {
@@ -122,16 +112,18 @@ Main Components
 		bottom: 0;
 		z-index: 2;
 		text-align: center;
-		font-size: 1.3rem;
+		font-size: 16px;
 		padding-bottom: 15px;
 		color: $color-1;
-		/* fix bug on Safari - text flickering while timeline translates */
-		@include transform(translateZ(0));
 
-		&::after {
+		/* fix bug on Safari - text flickering while timeline translates */
+		transform: translateZ(0);
+
+		&:after {
 			/* this is used to create the event spot */
-			content: '';
+			content: "";
 			position: absolute;
+
 			@include center(x);
 			bottom: -5px;
 			height: 12px;
@@ -139,10 +131,11 @@ Main Components
 			border-radius: 50%;
 			border: 2px solid darken($color-4, 10%);
 			background-color: $color-4;
-			@include transition(background-color .3s, border-color .3s);
+
+			transition: 0.3s;
 		}
 
-		.no-touch &:hover::after {
+		.no-touch &:hover:after {
 			background-color: $color-2;
 			border-color: $color-2;
 		}
@@ -150,85 +143,101 @@ Main Components
 		&.selected {
 			pointer-events: none;
 
-			&::after {
+			&:after {
 				background-color: $color-2;
 				border-color: $color-2;
 			}
 		}
 
-		&.older-event::after {
+		&.older-event:after {
 			border-color: $color-2;
 		}
 	}
 
 	@include MQ(L) {
 		margin: 6em auto;
-		
-		&::before {
+
+		&:before {
 			/* never visible - this is used in jQuery to check the current MQ */
-			content: 'desktop';
+			content: "desktop";
 		}
+	}
+
+	ol,
+	ul {
+		list-style: none;
 	}
 }
 
-.cd-timeline-navigation a {
-	/* these are the left/right arrows to navigate the timeline */
-	position: absolute;
-	z-index: 1;
-	@include center(y);
-	height: 34px;
-	width: 34px;
-	border-radius: 50%;
-	border: 2px solid darken($color-4, 10%);
-	/* replace text with an icon */
-	overflow: hidden;
-	color: transparent;
-	text-indent: 100%;
-	white-space: nowrap;
-	@include transition(border-color .3s);
-	
-	&::after {
-		/* arrow icon */
-		content: '';
+.flb-timeline-navigation {
+	list-style: none;
+
+	a {
+		/* these are the left/right arrows to navigate the timeline */
 		position: absolute;
-		height: 16px;
-		width: 16px;
-		@include center;
-		background: url(../img/cd-arrow.svg) no-repeat 0 0;
-	}
+		z-index: 1;
 
-	&.prev {
-		left: 0;
-		@include transform(translateY(-50%) rotate(180deg));
-	}
+		@include center(y);
+		height: 34px;
+		width: 34px;
+		border-radius: 50%;
+		border: 2px solid darken($color-4, 10%);
 
-	&.next {
-		right: 0;
-	}
+		/* replace text with an icon */
+		overflow: hidden;
+		color: transparent;
+		text-indent: 100%;
+		white-space: nowrap;
 
-	.no-touch &:hover {
-		border-color: $color-2;
-	}
+		@include transition(border-color 0.3s);
+		transition: 0.3s border-color;
 
-	&.inactive {
-		cursor: not-allowed;
+		&:after {
+			/* arrow icon */
+			content: "";
+			position: absolute;
+			height: 16px;
+			width: 16px;
 
-		&::after {
-			background-position: 0 -16px;
+			@include center;
+			background: url(../../images/horizontal/flb-arrow.svg) no-repeat 0 0;
+		}
+
+		&.prev {
+			left: 0;
+			transform: translateY(-50%) rotate(180deg);
+		}
+
+		&.next {
+			right: 0;
 		}
 
 		.no-touch &:hover {
-			border-color: darken($color-4, 10%);
+			border-color: $color-2;
+		}
+
+		&.inactive {
+			cursor: not-allowed;
+
+			&:after {
+				background-position: 0 -16px;
+			}
+
+			.no-touch &:hover {
+				border-color: darken($color-4, 10%);
+			}
 		}
 	}
 }
 
-.cd-horizontal-timeline .events-content {
+.flb-horizontal-timeline .events-content {
 	position: relative;
 	width: 100%;
 	margin: 2em 0;
 	overflow: hidden;
-	@include transition(height .4s);
+
+	@include transition(height 0.4s);
+	transition: 0.4s height;
 
 	li {
 		position: absolute;
@@ -236,41 +245,49 @@ Main Components
 		width: 100%;
 		left: 0;
 		top: 0;
-		@include transform(translateX(-100%));
+
+		transform: translateX(-100%);
 		padding: 0 5%;
 		opacity: 0;
-		@include animation-duration(.4s);
-		@include animation-timing-function(ease-in-out);
+
+		animation-duration: 0.4s;
+		animation-timing-function: ease-in-out;
 
 		&.selected {
 			/* visible event content */
 			position: relative;
 			z-index: 2;
 			opacity: 1;
-			@include transform(translateX(0));
+
+			transform: translateX(0);
 		}
 
-		&.enter-right, &.leave-right {
-			@include animation-name(cd-enter-right);
+		&.enter-right,
+		&.leave-right {
+
+			animation-name: flb-enter-right;
 		}
 
-		&.enter-left,  &.leave-left {
-			@include animation-name(cd-enter-left);
+		&.enter-left,
+		&.leave-left {
+
+			animation-name: flb-enter-left;
 		}
-		
-		&.leave-right, &.leave-left {
-			@include animation-direction(reverse);
+
+		&.leave-right,
+		&.leave-left {
+
+			animation-direction: reverse;
 		}
 	}
-	
+
 	li > * {
 		max-width: 800px;
 		margin: 0 auto;
 	}
 
 	h2 {
-		font-weight: bold;
-		font-size: 2.6rem;
+		font-size: 30px;
 		font-family: $secondary-font;
 		font-weight: 700;
 		line-height: 1.2;
@@ -281,57 +298,63 @@ Main Components
 		font-style: italic;
 		margin: 10px auto;
 
-		&::before {
-			content: '- ';
+		&:before {
+			content: "- ";
 		}
 	}
 
 	p {
-		font-size: 1.4rem;
+		font-size: 16px;
 		color: shade($color-4, 40%);
 	}
 
-	em, p {
+	em,
+	p {
 		line-height: 1.6;
 	}
 
 	@include MQ(M) {
 
 		h2 {
-			font-size: 7rem;
+			font-size: 50px;
 		}
 
 		em {
-			font-size: 2rem;
+			font-size: 16px;
 		}
 
 		p {
-			font-size: 1.8rem;
+			font-size: 16px;
 		}
 	}
-	
 }
 
-@include keyframes(cd-enter-right) {
+@keyframes flb-enter-right {
+
 	0% {
 		opacity: 0;
-		@include transform(translateX(100%));
+
+		transform: translateX(100%);
 	}
 
 	100% {
 		opacity: 1;
-		@include transform(translateX(0%));
+
+		transform: translateX(0%);
 	}
 }
 
-@include keyframes(cd-enter-left) {
+@keyframes flb-enter-left {
+
 	0% {
 		opacity: 0;
-		@include transform(translateX(-100%));
+
+		transform: translateX(-100%);
 	}
 
 	100% {
 		opacity: 1;
-		@include transform(translateX(0%));
+
+		transform: translateX(0%);
 	}
 }

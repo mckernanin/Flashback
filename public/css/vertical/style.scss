@@ -1,10 +1,10 @@
-@import 'bourbon'; // http://bourbon.io/
+@import "bourbon"; // http://bourbon.io/
 
-@import 'partials/variables'; // colors, fonts etc...
+@import "partials/variables"; // colors, fonts etc...
 
-@import 'partials/mixins'; // custom mixins
+@import "partials/mixins"; // custom mixins
 
-@import 'partials/layout'; // responsive grid and media queries
+@import "partials/layout"; // responsive grid and media queries
 
 /* --------------------------------
 
@@ -27,8 +27,8 @@ Modules - reusable parts of our design
 	width: 100%;
 	background-color: $background;
 
-	&::after { /* clearfix */
-		content: '';
+	&:after { /* clearfix */
+		content: "";
 		display: table;
 		clear: both;
 	}
@@ -43,14 +43,11 @@ Main components
 #flb-timeline {
 	position: relative;
 	padding: 2em;
-	margin: {
-		top: 2em;
-		bottom: 2em;
-	}
+	margin: 2em 0;
 
-	&::before {
+	&:before {
 		/* this is the vertical line */
-		content: '';
+		content: "";
 		position: absolute;
 		top: 0;
 		left: 18px;
@@ -60,12 +57,9 @@ Main components
 	}
 
 	@include MQ(L) {
-		margin: {
-			top: 3em;
-			bottom: 3em;
-		}
+		margin: 3em 0;
 
-		&::before {
+		&:before {
 			left: 50%;
 			margin-left: -2px;
 		}
@@ -75,6 +69,7 @@ Main components
 .flb-timeline-block {
 	position: relative;
 	margin: 2em 0;
+
 	@include clearfix;
 
 	&:first-child {
@@ -105,16 +100,16 @@ Main components
 	width: 40px;
 	height: 40px;
 	border-radius: 50%;
-	box-shadow: 0 0 0 4px $color-3, inset 0 2px 0 rgba(#000, .08), 0 3px 0 4px rgba(#000, .05);
+	box-shadow: 0 0 0 4px $color-3, inset 0 2px 0 rgba(#000, 0.08), 0 3px 0 4px rgba(#000, 0.05);
 	background: $color-4;
 
 	i {
 		font-size: 26px;
-		color: white;
+		color: #fff;
 		position: absolute;
-	    left: 50%;
-	    top: 50%;
-	    transform: translate3d(-50%, -50%, 0);
+		left: 50%;
+		top: 50%;
+		transform: translate3d(-50%, -50%, 0);
 	}
 
 	@include MQ(L) {
@@ -133,23 +128,28 @@ Main components
 
 		.cssanimations &.bounce-in {
 			visibility: visible;
-			@include animation(cd-bounce-1 .6s);
+
+			@include animation(flb-bounce-1 0.6s);
 		}
 	}
 }
 
-@include keyframes(cd-bounce-1) {
+@include keyframes(flb-bounce-1) {
+
 	0% {
 		opacity: 0;
-		@include transform(scale(.5));
+
+		@include transform(scale(0.5));
 	}
 
 	60% {
 		opacity: 1;
+
 		@include transform(scale(1.2));
 	}
 
 	100% {
+
 		@include transform(scale(1));
 	}
 }
@@ -158,20 +158,26 @@ Main components
 	position: relative;
 	margin-left: 60px;
 	background: $color-3;
+
 	@include border-radius;
 	padding: 1em;
 	box-shadow: 0 3px 0 darken($background, 5%);
+
 	@include clearfix;
 
 	h2 {
 		color: $color-1;
 	}
 
-	p, .flb-read-more, .flb-date {
+	p,
+	.flb-read-more,
+	.flb-date {
+
 		@include font-size(13px);
 	}
 
-	.flb-read-more, .flb-date {
+	.flb-read-more,
+	.flb-date {
 		display: inline-block;
 	}
 
@@ -182,9 +188,10 @@ Main components
 
 	.flb-read-more {
 		float: right;
-		padding: .8em 1em;
+		padding: 0.8em 1em;
 		background: $color_4;
 		color: $color-3;
+
 		@include border-radius;
 
 		&:hover {
@@ -194,12 +201,12 @@ Main components
 
 	.flb-date {
 		float: left;
-		padding: .8em 0;
-		opacity: .7;
+		padding: 0.8em 0;
+		opacity: 0.7;
 	}
 
-	&::before {
-		content: '';
+	&:before {
+		content: "";
 		position: absolute;
 		top: 16px;
 		right: 100%;
@@ -210,15 +217,20 @@ Main components
 	}
 
 	@include MQ(M) {
+
 		h2 {
+
 			@include font-size(20px);
 		}
 
 		p {
+
 			@include font-size(16px);
 		}
 
-		.flb-read-more, .flb-date {
+		.flb-read-more,
+		.flb-date {
+
 			@include font-size(14px);
 		}
 	}
@@ -228,7 +240,7 @@ Main components
 		padding: 1.6em;
 		width: 45%;
 
-		&::before {
+		&:before {
 			top: 24px;
 			left: 100%;
 			border-color: transparent;
@@ -244,13 +256,14 @@ Main components
 			width: 100%;
 			left: 122%;
 			top: 6px;
+
 			@include font-size(16px);
 		}
 
 		.flb-timeline-block:nth-child(even) & {
 			float: right;
 
-			&::before {
+			&:before {
 				top: 24px;
 				left: auto;
 				right: 100%;
@@ -275,7 +288,8 @@ Main components
 
 		.cssanimations &.bounce-in {
 			visibility: visible;
-			@include animation(cd-bounce-2 .6s);
+
+			@include animation(cd-bounce-2 0.6s);
 		}
 	}
 }
@@ -283,38 +297,47 @@ Main components
 @include MQ(L) {
 	/* inverse bounce effect on even content blocks */
 	.cssanimations .flb-timeline-block:nth-child(even) .flb-timeline-content.bounce-in {
-		@include animation(cd-bounce-2-inverse .6s);
+
+		@include animation(cd-bounce-2-inverse 0.6s);
 	}
 }
 
 @include keyframes(cd-bounce-2) {
+
 	0% {
 		opacity: 0;
+
 		@include transform(translateX(-100px));
 	}
 
 	60% {
 		opacity: 1;
+
 		@include transform(translateX(20px));
 	}
 
 	100% {
+
 		@include transform(translateX(0));
 	}
 }
 
 @include keyframes(cd-bounce-2-inverse) {
+
 	0% {
 		opacity: 0;
+
 		@include transform(translateX(100px));
 	}
 
 	60% {
 		opacity: 1;
+
 		@include transform(translateX(-20px));
 	}
 
 	100% {
+
 		@include transform(translateX(0));
 	}
 }
